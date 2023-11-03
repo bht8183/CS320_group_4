@@ -51,3 +51,10 @@ def main():
     print(exec_get_all("SELECT COUNT(*) FROM authors"))
 
 main()
+
+def addBookToCollection(collectionid, bookid):
+    #Users can add and delete books from their collection
+    #columns of collection are: collectionid, name, userid
+    #insert into contains table (bookid, columnid) VALUES (book.id, collection.id)
+    sqlStatement = 'INSERT INTO contains(collectionid, bookid) VALUES ()'
+    return sqlStatement
