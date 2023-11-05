@@ -2,6 +2,7 @@ import psycopg2
 import yaml
 import os
 from sshtunnel import SSHTunnelForwarder
+from datetime import date
 
 def execute_sql(sql, args={}):
     config = {}
@@ -31,13 +32,17 @@ def execute_sql(sql, args={}):
         print("Connection failed\n")
         print(e)
 
-def read_book(book_id, person_id, start_page, end_page, date):
+def read_book(book_id, person_id):
     # User can read book by selecting the page to start and the page to end
     # There is no read functionality for the user, user should only be able to mark a book as read
     # Function ADDS a new row to "read" table where the book being read, user reading, ammount of pages read, and the date where this rading took place is recorded
-    # Function still needs work
+    # Function still needs
+    cur_date = date.today().strftime() # get today's date and turn it into a string
+    start_page = input("where do you want to start reading")
+    end_page = input("where do you want to end")
     pagesRead = end_page - start_page
-    sqlStatement = 'INSERT INTO read(bookid, userid, pages, date) VALUES ({}, {}, {})'.format(book_id, person_id, pagesRead, date)
+    sqlStatement = 'INSERT INTO read(bookid, userid, pages, date) VALUES ({}, {}, {}, {})'.format(book_id, person_id, pagesRead, cur_date)
+    return execute_sql(sqlStatement)
 
     
 
